@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Guru;
 
 class RekapController extends Controller
 {
@@ -13,30 +14,41 @@ class RekapController extends Controller
      */
     public function index()
     {
-      $item = \App\Kehadiran::get()[0];
-      // dd($item->created_at)
+        $item = \App\Kehadiran::get()[0];
+        // dd($item->created_at)
 
-      $id = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('Y-m-d');
-      /*
+        $id = \Carbon\Carbon::createFromFormat(
+            'Y-m-d H:i:s',
+            $item->created_at
+        )->format('Y-m-d');
+        /*
       SELECT jadwal_guru.jam_mulai,jadwal_guru.jam_berakhir,kehadiran.tgl,bidang_studi.deskripsi as 'mapel',kelas.deskripsi,kehadiran.stts,kehadiran.deskripsi as 'why' FROM `kehadiran`
       INNER JOIN jadwal_guru ON jadwal_guru.id = kehadiran.id_jadwal
       INNER JOIN bidang_studi ON bidang_studi.id = jadwal_guru.bidang_studi_id
       INNER JOIN kelas ON kelas.id = jadwal_guru.kelas_id
       */
-      $data = \App\Kehadiran::select(
-        'jadwal_guru.jam_mulai',
-        'jadwal_guru.jam_berakhir',
-        'kehadiran.tgl',
-        'bidang_studi.deskripsi as "mapel"',
-        'kelas.deskripsi',
-        'kehadiran.stts',
-        'kehadiran.deskripsi as "why"'
+        $data = \App\Kehadiran::select(
+            'jadwal_guru.jam_mulai',
+            'jadwal_guru.jam_berakhir',
+            'kehadiran.tgl',
+            'bidang_studi.deskripsi as "mapel"',
+            'kelas.deskripsi',
+            'kehadiran.stts',
+            'kehadiran.deskripsi as "why"'
         )
-      ->join('jadwal_guru','jadwal_guru.id','=','kehadiran.id_jadwal')
-      ->join('bidang_studi','bidang_studi.id','=','jadwal_guru.bidang_studi_id')
-      ->join('kelas','kelas.id','=','jadwal_guru.kelas_id');
-      $current_page  = "rekap";
-        return view('admin.rekap')->with("current_page",$current_page);
+            ->join('jadwal_guru', 'jadwal_guru.id', '=', 'kehadiran.id_jadwal')
+            ->join(
+                'bidang_studi',
+                'bidang_studi.id',
+                '=',
+                'jadwal_guru.bidang_studi_id'
+            )
+            ->join('kelas', 'kelas.id', '=', 'jadwal_guru.kelas_id');
+        $guru = Guru::get();
+        $current_page = "rekap";
+        return view('admin.rekap')
+            ->with("current_page", $current_page)
+            ->with('guru', $guru);
     }
 
     /**
@@ -47,6 +59,37 @@ class RekapController extends Controller
     public function create()
     {
         //
+    }
+
+    public function hasil(Request $request)
+    {
+        $data = \App\Kehadiran::select(
+            'jadwal_guru.jam_mulai',
+            'jadwal_guru.jam_berakhir',
+            'kehadiran.tgl',
+            'bidang_studi.deskripsi as mapel',
+            'kelas.deskripsi',
+            'kehadiran.stts',
+            'kelas.deskripsi as kelas',
+            'kehadiran.deskripsi as "why"'
+        )
+            ->join('jadwal_guru', 'jadwal_guru.id', '=', 'kehadiran.id_jadwal')
+            ->join(
+                'bidang_studi',
+                'bidang_studi.id',
+                '=',
+                'jadwal_guru.bidang_studi_id'
+            )
+            ->join('kelas', 'kelas.id', '=', 'jadwal_guru.kelas_id')
+            ->whereMonth('kehadiran.tgl', $request->bulan)
+            ->whereYear('kehadiran.tgl', $request->tahun)
+            ->where('jadwal_guru.guru_id', $request->guru)
+            ->get();
+
+        $current_page = "listRekap";
+        return view('admin.listDataRekap')
+            ->with("data", $data)
+            ->with("current_page", $current_page);
     }
 
     /**

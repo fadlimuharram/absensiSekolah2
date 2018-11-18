@@ -9,13 +9,8 @@
             </h2>
             <ul class="header-dropdown m-r--5">
                 <li class="dropdown">
-                    <a
-                        href="javascript:void(0);"
-                        class="dropdown-toggle"
-                        data-toggle="dropdown"
-                        role="button"
-                        aria-haspopup="true"
-                        aria-expanded="true">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" aria-expanded="true">
                         <i class="material-icons">more_vert</i>
                     </a>
                     <ul class="dropdown-menu pull-right">
@@ -39,13 +34,8 @@
                     <div class="col-sm-12">
                         <div class="form-group form-float">
                             <div class="form-line{{ $errors->has('deskripsi') ? ' error' : '' }}">
-                                <input
-                                    type="text"
-                                    class="form-control{{ $errors->has('deskripsi') ? ' is-invalid' : '' }}"
-                                    name="deskripsi"
-                                    value="{{ old('deskripsi') }}"
-                                    required="required"
-                                    autofocus="autofocus">
+                                <input type="text" class="form-control{{ $errors->has('deskripsi') ? ' is-invalid' : '' }}"
+                                    name="deskripsi" value="{{ old('deskripsi') }}" required="required" autofocus="autofocus">
                                 <label class="form-label">Deskripsi</label>
                             </div>
                             @if ($errors->has('deskripsi'))
@@ -77,13 +67,8 @@
             </h2>
             <ul class="header-dropdown m-r--5">
                 <li class="dropdown">
-                    <a
-                        href="javascript:void(0);"
-                        class="dropdown-toggle"
-                        data-toggle="dropdown"
-                        role="button"
-                        aria-haspopup="true"
-                        aria-expanded="true">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" aria-expanded="true">
                         <i class="material-icons">more_vert</i>
                     </a>
                     <ul class="dropdown-menu pull-right">
@@ -114,14 +99,10 @@
                     <td>
                         <form action="{{ route('bidangstudi.destroy',$val->id) }}" method="POST">
 
-                            <button
-                                type="button"
-                                class="btn btn-primary"
-                                data-toggle="modal"
-                                data-target="#editModal{{$val->id}}">Edit</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal{{$val->id}}">Edit</button>
 
                             @csrf
-                             @method('DELETE')
+                            @method('DELETE')
 
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
@@ -139,17 +120,14 @@
                                                 <div class="col-sm-12">
                                                     <div class="form-group form-float">
                                                         <div class="form-line{{ $errors->has('deskripsi') ? ' error' : '' }}">
-                                                            <input
-                                                                type="deskripsi"
-                                                                class="form-control{{ $errors->has('deskripsi') ? ' is-invalid' : '' }}"
-                                                                name="deskripsi"
-                                                                value="{{ $val->deskripsi }}"
-                                                                required="required"
+                                                            <input type="deskripsi" class="form-control{{ $errors->has('deskripsi') ? ' is-invalid' : '' }}"
+                                                                name="deskripsi" value="{{ $val->deskripsi }}" required="required"
                                                                 autofocus="autofocus">
                                                             <label class="form-label">Deskripsi</label>
                                                         </div>
                                                         @if ($errors->has('deskripsi'))
-                                                        <label id="name-error" class="error" for="deskripsi">{{ $errors->first('deskripsi') }}</label>
+                                                        <label id="name-error" class="error" for="deskripsi">{{
+                                                            $errors->first('deskripsi') }}</label>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -164,7 +142,8 @@
                                                         <button type="submit" class="btn btn-link waves-effect">
                                                             {{ __('SIMPAN') }}
                                                         </button>
-                                                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                                                        <button type="button" class="btn btn-link waves-effect"
+                                                            data-dismiss="modal">CLOSE</button>
                                                     </div>
                                                 </div>
                                             </div>

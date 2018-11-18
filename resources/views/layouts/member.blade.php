@@ -38,7 +38,7 @@
         themes -->
         <link href="{{asset('css/themes/all-themes.css')}}" rel="stylesheet"/>
 
-    @if(isset($current_page) && ($current_page=='guru' || $current_page=='jadwalguru' || $current_page=='absensi' || $current_page=='laporan'))
+    {{-- @if(isset($current_page) && ($current_page=='guru' || $current_page=='jadwalguru' || $current_page=='absensi' || $current_page=='laporan')) --}}
 
 
             <!-- JQuery DataTable Css -->
@@ -52,7 +52,7 @@
 
             <!-- Bootstrap DatePicker Css -->
             <link href="{{asset('plugins/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet" />
-    @endif
+    {{-- @endif --}}
 
     </head>
 
@@ -672,7 +672,7 @@
     <!-- Demo Js -->
     <script src="{{asset('js/demo.js')}}"></script>
 
-    @if(isset($current_page) && ($current_page=='guru' || $current_page=='jadwalguru'))
+    {{-- @if(isset($current_page) && ($current_page=='guru' || $current_page=='jadwalguru')) --}}
 
     <!-- Jquery DataTable Plugin Js -->
     <script src="{{asset('plugins/jquery-datatable/jquery.dataTables.js')}}"></script>
@@ -696,7 +696,7 @@
     <!-- Bootstrap Datepicker Plugin Js -->
     <script src="{{asset('plugins/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
 
-    @endif
+    {{-- @endif --}}
 
 
     @yield('footScript')

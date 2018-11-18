@@ -14,15 +14,34 @@ class LaporanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($tanggal = null)
     {
-      $now = \Carbon\Carbon::now()->format('l');
-      if($now == "Tuesday"){
-        $hari = "senin";
-      }
-      $hari = 'senin';
+        if($tanggal == null){
+            $now = \Carbon\Carbon::now()->format('l');
+            $tanggal = \Carbon\Carbon::now();
+        }else{
+            $now = \Carbon\Carbon::createFromFormat('m-d-Y', $tanggal)->format('l');
+            $tanggal = \Carbon\Carbon::createFromFormat('m-d-Y',$tanggal);
+        }
+
+      if ($now == "Tuesday") {
+            $hari = "selasa";
+        } elseif ($now == "Thursday") {
+            $hari = "kamis";
+        } elseif ($now == "Friday") {
+            $hari = "jumat";
+        } elseif ($now == "Wednesday"){
+            $hari = "rabu";
+        } elseif ($now == "Monday") {
+            $hari = "senin";
+        }else{
+            $hari = 'hari libur';
+        }
+        
+        // dd($tanggal->format('Y-m-d'));
       $current_page = 'laporan';
       $data = \App\Kehadiran::select(
+        'kehadiran.id',
         'bidang_studi.deskripsi as bs',
         'guru.id as guruid',
         'guru.nama',
@@ -34,22 +53,23 @@ class LaporanController extends Controller
         'kelas.deskripsi',
         'kehadiran.deskripsi',
         'kehadiran.stts',
-        'kehadiran.created_at',
+        'kehadiran.tgl',
         'guru.tlpn')
       ->join('jadwal_guru','jadwal_guru.id','=','kehadiran.id_jadwal')
       ->join('guru','guru.id','=','jadwal_guru.guru_id')
       ->join('kelas','kelas.id','=','jadwal_guru.kelas_id')
       ->join('bidang_studi','bidang_studi.id','=','jadwal_guru.bidang_studi_id')
-      ->where(
-        'kehadiran.id_user','=',Auth::user()->id
-      )->paginate(10);
+      ->where([
+        ['kehadiran.id_user','=',Auth::user()->id],
+        ['kehadiran.tgl','=',$tanggal->format('Y-m-d')]
+      ])->paginate(10);
       // $data = \App\Kehadiran::select('*')
       // ->join('jadwal_guru','jadwal_guru.id','=','kehadiran.id_jadwal')->paginate(10);
 
-      $guru = Guru::get();
-      $kelas = Kelas::get();
+    //   $guru = Guru::get();
+    //   $kelas = Kelas::get();
       // dd($guru);
-        return view('member.hasilLaporan',compact('data','guru','kelas'))->with('current_page',$current_page);
+        return view('member.hasilLaporan',compact('data','tanggal','hari'))->with('current_page',$current_page);
     }
 
     /**
@@ -115,6 +135,7 @@ class LaporanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        \App\Kehadiran::find($id)->delete();
+        return redirect(route('hasil.index'));
     }
 }

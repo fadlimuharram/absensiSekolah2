@@ -17,39 +17,44 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
-
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group([
-    'middleware'=>['auth','isAdmin']
-], function(){
+Route::group(
+    [
+        'middleware' => ['auth', 'isAdmin']
+    ],
+    function () {
+        Route::resource('kelas', 'KelasController', [
+            'except' => ['create', 'show', 'edit']
+        ]);
+        Route::resource('bidangstudi', 'BidangStudiController', [
+            'only' => ['index', 'store', 'update', 'destroy']
+        ]);
+        Route::resource('guru', 'GuruController');
+        Route::resource('jadwalguru', 'JadwalGuruController');
+        Route::get(
+            'jadwalGuruDataTable',
+            'JadwalGuruController@guruDataTabele'
+        )->name('jadwalGuruDataTable');
+        Route::resource('users', 'UserController');
 
-    Route::resource('kelas','KelasController',[
-        'except'=>['create','show','edit']
-    ]);
-    Route::resource('bidangstudi','BidangStudiController',[
-        'only'=>['index','store','update','destroy']
-    ]);
-    Route::resource('guru','GuruController');
-    Route::resource('jadwalguru','JadwalGuruController');
-    Route::resource('users','UserController');
+        Route::get('guruDataTable', 'GuruController@guruDataTabele')->name(
+            'guruDataTable.data'
+        );
+        Route::resource('rekap', 'RekapController');
 
-    Route::get('guruDataTable','GuruController@guruDataTabele')->name('guruDataTable.data');
-    Route::resource('rekap','RekapController');
+        Route::post('data-rekap', 'RekapController@hasil')->name('dataRekap');
+    }
+);
 
-
-
-
-
-});
-
-
-Route::group([
-    'middleware'=>['auth','isMember']
-], function(){
-
-    Route::resource('absensi','AbsensiController');
-    Route::resource('hasil','LaporanController');
-
-});
+Route::group(
+    [
+        'middleware' => ['auth', 'isMember']
+    ],
+    function () {
+        Route::get('absensi/{tanggal}', 'AbsensiController@index');
+        Route::resource('absensi', 'AbsensiController');
+        Route::get('hasil/{tanggal}', 'LaporanController@index');
+        Route::resource('hasil', 'LaporanController');
+    }
+);

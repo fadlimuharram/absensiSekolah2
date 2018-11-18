@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use \App\Guru;
-use \App\Kelas;
-use \App\BidangStudi;
-use \App\JadwalGuru;
+use App\Guru;
+use App\Kelas;
+use App\BidangStudi;
+use App\JadwalGuru;
+use Yajra\DataTables\Facades\DataTables;
 
 class JadwalGuruController extends Controller
 {
@@ -17,28 +18,36 @@ class JadwalGuruController extends Controller
      */
     public function index()
     {
-
-      $data = JadwalGuru::select(
-        'jadwal_guru.id',
-        'jadwal_guru.jam_mulai',
-        'jadwal_guru.jam_berakhir',
-        'guru.nik',
-        'guru.nama',
-        'jadwal_guru.hari',
-        'kelas.deskripsi',
-        'guru.tlpn',
-        'kelas.deskripsi as kelasd',
-        'bidang_studi.deskripsi as bs')
-      ->join('bidang_studi','bidang_studi.id','=','jadwal_guru.bidang_studi_id')
-      ->join('guru','guru.id','=','jadwal_guru.guru_id')
-      ->join('kelas','kelas.id','=','jadwal_guru.kelas_id')
-      ->paginate(10);
+        $data = JadwalGuru::select(
+            'jadwal_guru.id',
+            'jadwal_guru.jam_mulai',
+            'jadwal_guru.jam_berakhir',
+            'guru.nik',
+            'guru.nama',
+            'jadwal_guru.hari',
+            'kelas.deskripsi',
+            'guru.tlpn',
+            'kelas.deskripsi as kelasd',
+            'bidang_studi.deskripsi as bs'
+        )
+            ->join(
+                'bidang_studi',
+                'bidang_studi.id',
+                '=',
+                'jadwal_guru.bidang_studi_id'
+            )
+            ->join('guru', 'guru.id', '=', 'jadwal_guru.guru_id')
+            ->join('kelas', 'kelas.id', '=', 'jadwal_guru.kelas_id')
+            ->paginate(10);
         $current_page = 'jadwalguru';
         $guru = Guru::all();
         $kelas = Kelas::all();
         $bidangStudi = BidangStudi::all();
 
-        return view('admin.jadwalGuru', compact('guru','kelas','bidangStudi','current_page','data'));
+        return view(
+            'admin.jadwalGuru',
+            compact('guru', 'kelas', 'bidangStudi', 'current_page', 'data')
+        );
     }
 
     /**
@@ -48,7 +57,52 @@ class JadwalGuruController extends Controller
      */
     public function create()
     {
+    }
 
+    public function guruDataTabele()
+    {
+        $data = JadwalGuru::select(
+            'jadwal_guru.id',
+            'guru.nik',
+            'guru.nama',
+            'jadwal_guru.jam_mulai',
+            'jadwal_guru.jam_berakhir',
+            'jadwal_guru.hari',
+            'kelas.deskripsi as kelasd',
+            'guru.tlpn',
+            'bidang_studi.deskripsi as bs'
+        )
+            ->join(
+                'bidang_studi',
+                'bidang_studi.id',
+                '=',
+                'jadwal_guru.bidang_studi_id'
+            )
+            ->join('guru', 'guru.id', '=', 'jadwal_guru.guru_id')
+            ->join('kelas', 'kelas.id', '=', 'jadwal_guru.kelas_id');
+
+        return DataTables::of($data)
+            ->addColumn('action', function ($data) {
+                $htmlForm =
+                    '<form action="' .
+                    route('jadwalguru.destroy', $data->id) .
+                    '" method="POST" id="hapusJadwalGuru' .
+                    $data->id .
+                    '">
+                    ' .
+                    '
+                    ' .
+                    csrf_field() .
+                    '
+                    ' .
+                    method_field('DELETE') .
+                    '
+                    <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
+                </form>';
+
+                return $htmlForm;
+            })
+            ->make(true);
     }
 
     /**
@@ -60,20 +114,23 @@ class JadwalGuruController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'jammulai'=>'required',
-            'jamakhir'=>'required',
-            'hari'=>'required'
+            'jammulai' => 'required',
+            'jamakhir' => 'required',
+            'hari' => 'required'
         ]);
 
         JadwalGuru::create([
-            'jam_mulai'=> $request->jammulai,
-            'jam_berakhir'=> $request->jamakhir,
-            'hari'=> $request->hari,
-            'bidang_studi_id'=> $request->bidangstudi,
-            'guru_id'=>$request->guru,
-            'kelas_id'=>$request->kelas
+            'jam_mulai' => $request->jammulai,
+            'jam_berakhir' => $request->jamakhir,
+            'hari' => $request->hari,
+            'bidang_studi_id' => $request->bidangstudi,
+            'guru_id' => $request->guru,
+            'kelas_id' => $request->kelas
         ]);
-        return redirect(route('jadwalguru.index'))->with('success','guru berhasil di tambahkan');
+        return redirect(route('jadwalguru.index'))->with(
+            'success',
+            'guru berhasil di tambahkan'
+        );
     }
 
     /**
@@ -119,6 +176,9 @@ class JadwalGuruController extends Controller
     public function destroy($id)
     {
         JadwalGuru::find($id)->delete();
-        return redirect(route('jadwalguru.index'))->with('success','berhasil di delete');
+        return redirect(route('jadwalguru.index'))->with(
+            'success',
+            'berhasil di delete'
+        );
     }
 }

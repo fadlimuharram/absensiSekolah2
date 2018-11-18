@@ -25,57 +25,76 @@ class AbsensiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($tanggal = null)
     {
-      // where('user_id',Auth::user()->id)->get()[0]->kelas_id;
+
+        if($tanggal == null){
+            $now = \Carbon\Carbon::now()->format('l');
+            $tanggal = \Carbon\Carbon::now();
+        }else{
+            $now = \Carbon\Carbon::createFromFormat('m-d-Y', $tanggal)->format('l');
+            $tanggal = \Carbon\Carbon::createFromFormat('m-d-Y',$tanggal);
+        }
         $curr_kelas = User::select('kelas.deskripsi')
-        ->join('kelas','kelas.id','=','users.id_kelas')->where('users.id','=',Auth::user()->id)->get()[0]->deskripsi;
-        // dd($curr_kelas);
-        // echo Auth::user()->id_kelas;
+            ->join('kelas', 'kelas.id', '=', 'users.id_kelas')
+            ->where('users.id', '=', Auth::user()->id)
+            ->get()[0]->deskripsi;
+        // dd($tanggal);
+        // dd(\Carbon\Carbon::parse($tanggal)->format('l'));
 
-  $now = \Carbon\Carbon::now()->format('l');
-  if($now == "Tuesday"){
-    $hari = "selasa";
-  }elseif ($now == "Thursday") {
-    $hari = "kamis";
-  }elseif ($now == "Friday") {
-    $hari = "jumat";
-  }elseif ($now = "Wednesday") {
-    $hari = "rabu";
-  }elseif ($now = "Monday") {
-    $hari = "senin";;
-  }
-  $halaman = 10;
-  $current_page = 'absensi';
-  $sekarang = JadwalGuru::select(
-    'jadwal_guru.id',
-    'guru.tlpn',
-    'guru.NIK',
-    'guru.nama',
-    'kelas.deskripsi',
-    'bidang_studi.deskripsi AS bs',
-    'jadwal_guru.hari',
-    'jadwal_guru.jam_mulai',
-    'jadwal_guru.jam_berakhir',
-    'jadwal_guru.hari'
-    )
-    ->join('guru','guru.id','=','jadwal_guru.guru_id')
-    ->join('kelas','kelas.id','=','jadwal_guru.kelas_id')
-    ->join('bidang_studi','bidang_studi.id','=','jadwal_guru.bidang_studi_id')
-    ->where([
-      ['jadwal_guru.hari','=','kamis'],
-      ['kelas.id','=',Auth::user()->id_kelas]
-    ])->paginate($halaman);
-    // dd($sekarang);
-    // dd($curr_kelas);
+        // $now = \Carbon\Carbon::now()->format('l');
+        
+        if ($now == "Tuesday") {
+            $hari = "selasa";
+        } elseif ($now == "Thursday") {
+            $hari = "kamis";
+        } elseif ($now == "Friday") {
+            $hari = "jumat";
+        } elseif ($now == "Wednesday"){
+            $hari = "rabu";
+        } elseif ($now == "Monday") {
+            $hari = "senin";
+        }else{
+            $hari = 'hari libur';
+        }
+        $halaman = 10;
+        $current_page = 'absensi';
+        $sekarang = JadwalGuru::select(
+            'jadwal_guru.id',
+            'guru.tlpn',
+            'guru.NIK',
+            'guru.nama',
+            'kelas.deskripsi',
+            'bidang_studi.deskripsi AS bs',
+            'jadwal_guru.hari',
+            'jadwal_guru.jam_mulai',
+            'jadwal_guru.jam_berakhir',
+            'jadwal_guru.hari'
+        )
+            ->join('guru', 'guru.id', '=', 'jadwal_guru.guru_id')
+            ->join('kelas', 'kelas.id', '=', 'jadwal_guru.kelas_id')
+            ->join(
+                'bidang_studi',
+                'bidang_studi.id',
+                '=',
+                'jadwal_guru.bidang_studi_id'
+            )
+            ->where([
+                ['jadwal_guru.hari', '=', $hari],
+                ['kelas.id', '=', Auth::user()->id_kelas]
+            ])
+            ->paginate($halaman);
 
-/*
-    dd(\Carbon\Carbon::now()->format('Y-m-d'));
-    */
+        $kehadiran = Kehadiran::select('*')
+            ->where('tgl', $tanggal->format('Y-m-d'))
+            ->get();
 
-    $kehadiran = Kehadiran::select('*')->where('tgl',\Carbon\Carbon::now()->format('Y-m-d'))->get();
-
-        return view('member.absen',compact('sekarang'))->with('current_page',$current_page)->with('kehadiran',$kehadiran);
+        return view('member.absen', compact('sekarang'))
+            ->with('current_page', $current_page)
+            ->with('kehadiran', $kehadiran)
+            ->with('now', $now)
+            ->with('tanggal',$tanggal)
+            ->with('hari',$hari);
     }
 
     /**
@@ -97,11 +116,11 @@ class AbsensiController extends Controller
     public function store(Request $request)
     {
         \App\Kehadiran::create([
-          'id_jadwal' => $request->id_jadwal,
-          'deskripsi' => $request->deskripsi,
-          'id_user' => $request->id_usr,
-          'stts' => $request->stts,
-          'tgl' => date('Y-m-d')
+            'id_jadwal' => $request->id_jadwal,
+            'deskripsi' => $request->deskripsi,
+            'id_user' => $request->id_usr,
+            'stts' => $request->stts,
+            'tgl' => $request->untuk_tanggal
         ]);
         return redirect(route('absensi.index'));
     }

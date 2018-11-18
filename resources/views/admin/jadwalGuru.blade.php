@@ -191,7 +191,7 @@
                         <th>Pelajaran</th>
                         <th>Action</th>
                     </tr>
-                    @foreach ($data as $val)
+                    {{-- @foreach ($data as $val)
                     <tr>
                       <td>{{$val->nik}}</td>
                       <td>{{$val->nama}}</td>
@@ -209,9 +209,10 @@
                         </form>
                       </td>
                     </tr>
-                    @endforeach
+                    @endforeach --}}
                 </thead>
             </table>
+            {{-- {!! $data->links() !!} --}}
         </div>
     </div>
 </div>
@@ -234,6 +235,25 @@ $(function(){
   $('#time').bootstrapMaterialDatePicker({ date: false });
 
 });
+
+    $(function() {
+        $('#guru-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{!! route('jadwalGuruDataTable') !!}',
+            columns: [
+                { data: 'nik', name: 'guru.nik' },
+                { data: 'nama', name: 'guru.nama' },
+                { data: 'jam_mulai', name: 'jadwal_guru.jam_mulai', searchable: false },
+                { data: 'jam_berakhir', name: 'jadwal_guru.jam_berakhir', searchable: false },
+                { data: 'hari', name: 'jadwal_guru.hari' },
+                { data: 'kelasd', name: 'kelas.deskripsi' },
+                { data: 'tlpn', name: 'guru.tlpn' },
+                { data: 'bs', name: 'bidang_studi.deskripsi' },
+                {data: 'action', name: 'action', orderable: false, searchable: false}
+            ]
+        });
+    });
 
 </script>
 @endsection
