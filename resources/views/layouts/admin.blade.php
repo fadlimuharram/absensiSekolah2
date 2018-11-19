@@ -367,12 +367,21 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li>
-                        <a href="../../index.html">
+                    @if ($current_page == "home")
+                    <li class="active">
+                        <a href="{{route('adminhome.index')}}">
                             <i class="material-icons">home</i>
                             <span>Home</span>
                         </a>
                     </li>
+                    @else
+                    <li class="A">
+                        <a href="{{route('adminhome.index')}}">
+                            <i class="material-icons">home</i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    @endif
                     @if ($current_page == "users")
                     <li class="active">
                         <a href="{{route('users.index')}}">

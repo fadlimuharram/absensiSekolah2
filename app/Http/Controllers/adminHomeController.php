@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
 
-class UserController extends Controller
+class adminHomeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,24 +13,8 @@ class UserController extends Controller
      */
     public function index()
     {
-      $current_page = "users";
-      $req_get = request()->input('page',1);
-      $kelas = \App\Kelas::all();
-      $halaman=10;
-      $data = \App\User::select(
-        'users.id as id_k',
-        'users.firstname',
-        'users.lastname',
-        'users.email',
-        'kelas.id as kelas_id',
-        'kelas.deskripsi',
-        'users.levelakses')
-      ->join('kelas','kelas.id','=','users.id_kelas')
-      ->where('users.levelakses','=','member')->paginate(10);
-        return view('admin.users',compact('data','kelas'))->with('current_page',$current_page)
-        ->with('i',
-            ($req_get-1)*$halaman
-        );
+        //
+        return view('admin.home')->with('current_page','home');
     }
 
     /**
@@ -86,14 +69,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-      User::find($id)->update([
-          'firstname'=>$request->fname,
-          'lastname'=>$request->lname,
-          'id_kelas'=>$request->kelas,
-          'email'=>$request->email
-      ]);
-
-      return redirect(route('users.index'))->with('success','User berhasil di edit');
+        //
     }
 
     /**
@@ -104,7 +80,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-      $a = \App\User::find($id)->delete();
-      return redirect(route('users.index'))->with('success','berhasil di delete');
+        //
     }
 }

@@ -114,6 +114,9 @@ class JadwalGuruController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'kelas' => 'required',
+            'guru' => 'required',
+            'bidangstudi' => 'required',
             'jammulai' => 'required',
             'jamakhir' => 'required',
             'hari' => 'required'

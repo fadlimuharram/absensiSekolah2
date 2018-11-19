@@ -44,6 +44,7 @@
                                 <b>Kelas</b>
                             </p>
                             <select class="selectpicker form-control show-tick" data-live-search="true" name="kelas">
+                              <option value=""></option>
                               @foreach($kelas as $val)
                                 <option value="{{$val->id}}">{{$val->deskripsi}}</option>
                               @endforeach
@@ -60,6 +61,7 @@
                                 <b>Guru</b>
                             </p>
                             <select class="selectpicker form-control show-tick" data-live-search="true" name="guru">
+                              <option value=""></option>
                               @foreach($guru as $val)
                                 <option value="{{$val->id}}">{{$val->nama}}</option>
                               @endforeach
@@ -76,6 +78,7 @@
                                 <b>Bidang Studi</b>
                             </p>
                             <select class="selectpicker form-control show-tick" data-live-search="true" name="bidangstudi">
+                              <option value=""></option>
                               @foreach($bidangStudi as $val)
                                 <option value="{{$val->id}}">{{$val->deskripsi}}</option>
                               @endforeach
@@ -118,6 +121,7 @@
                               <b>Hari</b>
                           </p>
                           <select class="selectpicker form-control show-tick" data-live-search="true" name="hari">
+                            <option value=""></option>
                             <option value="senin">Senin</option>
                             <option value="selasa">Selasa</option>
                             <option value="rabu">Rabu</option>

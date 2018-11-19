@@ -24,6 +24,7 @@ Route::group(
         'middleware' => ['auth', 'isAdmin']
     ],
     function () {
+        Route::resource('adminhome','adminHomeController');
         Route::resource('kelas', 'KelasController', [
             'except' => ['create', 'show', 'edit']
         ]);

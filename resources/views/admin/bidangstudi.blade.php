@@ -88,7 +88,7 @@
         <div class="body">
             <table class="table table-bordered">
                 <tr>
-                    <th>No</th>
+                    <th width="50px">No</th>
                     <th>Daftar</th>
                     <th width="280px">Action</th>
                 </tr>

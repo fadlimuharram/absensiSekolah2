@@ -55,9 +55,6 @@ class KelasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'deskripsi'=>'required'
-        ]);
 
         Kelas::find($id)->update([
             'deskripsi'=>$request->deskripsi

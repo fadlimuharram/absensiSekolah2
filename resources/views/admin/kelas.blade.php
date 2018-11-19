@@ -1,4 +1,4 @@
-@extends('layouts.admin') 
+@extends('layouts.admin')
 
 @section('content')
 
@@ -46,7 +46,7 @@
                                     class="form-control{{ $errors->has('deskripsi') ? ' is-invalid' : '' }}"
                                     name="deskripsi"
                                     value="{{ old('deskripsi') }}"
-                                    required="required"
+
                                     autofocus="autofocus">
                                 <label class="form-label">Deskripsi</label>
                             </div>
@@ -111,7 +111,7 @@
                 </tr>
                 @foreach ($kelas as $kel)
                 <tr>
-                    <td>{{ ++$i }}</td>
+                    <td style="width:50px">{{ ++$i }}</td>
                     <td>{{ $kel->deskripsi }}</td>
                     <td>
                         <form action="{{ route('kelas.destroy',$kel->id) }}" method="POST">
@@ -122,7 +122,7 @@
                                 data-toggle="modal"
                                 data-target="#editModal{{$kel->id}}">Edit</button>
 
-                            @csrf 
+                            @csrf
                             @method('DELETE')
 
                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -140,7 +140,7 @@
                                             <div class="row clearfix">
                                                 <div class="col-sm-12">
                                                     <div class="form-group form-float">
-                                                        <div class="form-line{{ $errors->has('deskripsi') ? ' error' : '' }}">
+                                                        <div class="form-line">
                                                             <input
                                                                 type="deskripsi"
                                                                 class="form-control{{ $errors->has('deskripsi') ? ' is-invalid' : '' }}"
@@ -150,9 +150,7 @@
                                                                 autofocus="autofocus">
                                                             <label class="form-label">Deskripsi</label>
                                                         </div>
-                                                        @if ($errors->has('deskripsi'))
-                                                        <label id="name-error" class="error" for="deskripsi">{{ $errors->first('deskripsi') }}</label>
-                                                        @endif
+
                                                     </div>
                                                 </div>
 
@@ -188,7 +186,7 @@
     </div>
 </div>
 
-{{-- 
+{{--
 
 <div class="container">
     <div class="row justify-content-center">
@@ -235,7 +233,7 @@
 <table class="table table-bordered">
 <tr>
 <th>No</th>
-<th>Daftar</th>
+<th>Daftar2</th>
 <th width="280px">Action</th>
 </tr>
 @foreach ($kelas as $kel)

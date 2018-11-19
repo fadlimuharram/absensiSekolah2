@@ -25,5 +25,8 @@ class HomeController extends Controller
     {
         $current_page = 'home';
         return view('home', compact('current_page'));
+        if (Auth::user()->levelakses == "admin") {
+          // code...
+        }
     }
 }
