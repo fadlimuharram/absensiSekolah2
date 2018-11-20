@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -24,9 +25,14 @@ class HomeController extends Controller
     public function index()
     {
         $current_page = 'home';
-        return view('home', compact('current_page'));
+        // return view('home', compact('current_page'));
         if (Auth::user()->levelakses == "admin") {
-          // code...
+          return redirect(route('kelas'));
+        }else {
+          return redirect(route('absensi.index'));
         }
+
     }
 }
+
+?>

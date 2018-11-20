@@ -322,8 +322,11 @@
                         alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{
-                        Auth::user()->firstname." ".Auth::user()->lastname }}</div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <?php
+                      echo Auth::user()->firstname." ".Auth::user()->lastname." - Admin";
+                       ?>
+                    </div>
                     <div class="email">{{ Auth::user()->email}}</div>
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
@@ -385,14 +388,14 @@
                     @if ($current_page == "users")
                     <li class="active">
                         <a href="{{route('users.index')}}">
-                            <i class="material-icons">text_fields</i>
+                            <i class="material-icons">supervisor_account</i>
                             <span>Users</span>
                         </a>
                     </li>
                     @else
                     <li class="A">
                         <a href="{{ route('users.index') }}">
-                            <i class="material-icons">text_fields</i>
+                            <i class="material-icons">supervisor_account</i>
                             <span>Users</span>
                         </a>
                     </li>
@@ -417,14 +420,14 @@
                     @if ($current_page == "bidangstudi")
                     <li class="active">
                         <a href="{{route('bidangstudi.index')}}">
-                            <i class="material-icons">text_fields</i>
+                            <i class="material-icons">view_list</i>
                             <span>Bidang Studi</span>
                         </a>
                     </li>
                     @else
                     <li class="A">
                         <a href="{{route('bidangstudi.index')}}">
-                            <i class="material-icons">text_fields</i>
+                            <i class="material-icons">view_list</i>
                             <span>Bidang Studi</span>
                         </a>
                     </li>
@@ -433,14 +436,14 @@
                     @if ($current_page == "guru")
                     <li class="active">
                         <a href="{{route('guru.index')}}">
-                            <i class="material-icons">text_fields</i>
+                            <i class="material-icons">supervisor_account</i>
                             <span>Guru</span>
                         </a>
                     </li>
                     @else
                     <li class="A">
                         <a href="{{route('guru.index')}}">
-                            <i class="material-icons">text_fields</i>
+                            <i class="material-icons">supervisor_account</i>
                             <span>Guru</span>
                         </a>
                     </li>
@@ -449,14 +452,14 @@
                     @if ($current_page == "jadwalguru")
                     <li class="active">
                         <a href="{{route('jadwalguru.index')}}">
-                            <i class="material-icons">text_fields</i>
+                            <i class="material-icons">schedule</i>
                             <span>Jadwal Guru</span>
                         </a>
                     </li>
                     @else
                     <li class="A">
                         <a href="{{route('jadwalguru.index')}}">
-                            <i class="material-icons">text_fields</i>
+                            <i class="material-icons">schedule</i>
                             <span>Jadwal Guru</span>
                         </a>
                     </li>

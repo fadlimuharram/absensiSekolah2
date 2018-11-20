@@ -372,7 +372,15 @@
                             class="name"
                             data-toggle="dropdown"
                             aria-haspopup="true"
-                            aria-expanded="false">{{Auth::user()->firstname." ".Auth::user()->lastname}}</div>
+                            aria-expanded="false">
+                            <?php
+                            $kelas = \App\User::select('kelas.deskripsi')
+                            ->join('kelas','kelas.id','=','users.id_kelas')
+                            ->where('users.id','=',Auth::user()->id)
+                            ->first();
+                            echo Auth::user()->firstname." ".Auth::user()->lastname." - ".$kelas->deskripsi;
+                             ?>
+                            </div>
                         <div class="email">{{Auth::user()->email}}</div>
                         <div class="btn-group user-helper-dropdown">
                             <i
@@ -426,14 +434,14 @@
                         @if ($current_page == "absensi")
                         <li class="active">
                             <a href="{{route('absensi.index')}}">
-                                <i class="material-icons">text_fields</i>
+                                <i class="material-icons">assignment_ind</i>
                                 <span>Absensi</span>
                             </a>
                         </li>
                         @else
                         <li class="A">
                             <a href="{{route('absensi.index')}}">
-                                <i class="material-icons">text_fields</i>
+                                <i class="material-icons">assignment_ind</i>
                                 <span>Absensi</span>
                             </a>
                         </li>
@@ -441,19 +449,19 @@
                         @if ($current_page == "laporan")
                         <li class="active">
                             <a href="{{route('hasil.index')}}">
-                                <i class="material-icons">text_fields</i>
+                                <i class="material-icons">assignment</i>
                                 <span>Hasil Laporan</span>
                             </a>
                         </li>
                         @else
                         <li class="A">
                             <a href="{{route('hasil.index')}}">
-                                <i class="material-icons">text_fields</i>
+                                <i class="material-icons">assignment</i>
                                 <span>Hasil Laporan</span>
                             </a>
                         </li>
                         @endif
-                      
+
 
                     </ul>
             </div>

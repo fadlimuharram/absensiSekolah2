@@ -43,7 +43,7 @@ class AbsensiController extends Controller
         // dd(\Carbon\Carbon::parse($tanggal)->format('l'));
 
         // $now = \Carbon\Carbon::now()->format('l');
-        
+
         if ($now == "Tuesday") {
             $hari = "selasa";
         } elseif ($now == "Thursday") {

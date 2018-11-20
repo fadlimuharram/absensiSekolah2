@@ -15,7 +15,7 @@
 
 <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
     <div class="card">
-        
+
         @if($tanggal->timestamp > \Carbon\Carbon::now()->addHour(1)->timestamp)
         <div class="body">
             <h2>Absensi Belum Di Buka</h2>
@@ -30,16 +30,8 @@
                 </h2>
                 <ul class="header-dropdown m-r--5">
                     <li class="dropdown">
-                        <a
-                            href="javascript:void(0);"
-                            class="dropdown-toggle"
-                            data-toggle="dropdown"
-                            role="button"
-                            aria-haspopup="true"
-                            aria-expanded="true">
-                            <i class="material-icons">more_vert</i>
-                        </a>
-                        <ul class="dropdown-menu pull-right">
+
+                        <!-- <ul class="dropdown-menu pull-right">
                             <li>
                                 <a href="javascript:void(0);" class=" waves-effect waves-block">Action</a>
                             </li>
@@ -49,7 +41,7 @@
                             <li>
                                 <a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a>
                             </li>
-                        </ul>
+                        </ul> -->
                     </li>
                 </ul>
             </div>
@@ -65,11 +57,11 @@
                             <th>Absen</th>
                         </tr>
                         @foreach ($sekarang as $item)
-    
+
                           <?php
                           $apakahSudahAbsen = 'belum';
                            ?>
-    
+
                           @foreach($kehadiran as $itemKehadrian)
                             @if($itemKehadrian->id_jadwal == $item->id)
                               <?php
@@ -77,7 +69,7 @@
                                ?>
                             @endif
                           @endforeach
-    
+
                           @if($apakahSudahAbsen == 'belum')
                           <tr>
                               <td>{{$item->jam_mulai}}</td>
@@ -92,9 +84,9 @@
                                         class="btn btn-primary"
                                         data-toggle="modal"
                                         data-target="#kehadiranModal{{$item->id}}">Kehadiran</button>
-    
+
                                     @csrf @method('DELETE')
-    
+
                                     <!-- <button type="submit" class="btn btn-danger">Delete</button> -->
                                 <!-- </form> -->
                                 <div class="modal fade" id="kehadiranModal{{$item->id}}" tabindex="-1" role="dialog">
@@ -140,12 +132,12 @@
                                                                 @endif
                                                             </div>
                                                         </div>
-    
+
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <div class="row clearfix">
-    
+
                                                         <div class="col-sm-12">
                                                             <div class="form-group form-float">
                                                                 <button type="submit" class="btn btn-link waves-effect">
@@ -155,23 +147,23 @@
                                                             </div>
                                                         </div>
                                                     </div>
-    
+
                                                 </div>
-    
+
                                             </form>
-    
+
                                         </div>
                                     </div>
                                 </div>
-    
+
                               </td>
-    
+
                           </tr>
                           @endif
-    
+
                         @endforeach
                     </table>
-    
+
             </div>
         @endif
     </div>
@@ -193,12 +185,12 @@
             $('#my_hidden_input').val(
                 $('#datepicker').datepicker('getFormattedDate')
             );
-            
+
             var temukan = '/';
             var replacenya = new RegExp(temukan, 'g');
 
             window.location = $('#locationTo').val() + '/' + $('#datepicker').datepicker('getFormattedDate').replace(replacenya,'-');
-            
+
         });
     });
 </script>

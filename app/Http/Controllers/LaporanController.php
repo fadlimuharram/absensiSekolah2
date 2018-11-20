@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 Use \App\Guru;
 Use \App\Kelas;
+use \App\User;
 
 class LaporanController extends Controller
 {
@@ -37,7 +38,7 @@ class LaporanController extends Controller
         }else{
             $hari = 'hari libur';
         }
-        
+
         // dd($tanggal->format('Y-m-d'));
       $current_page = 'laporan';
       $data = \App\Kehadiran::select(
@@ -69,7 +70,8 @@ class LaporanController extends Controller
     //   $guru = Guru::get();
     //   $kelas = Kelas::get();
       // dd($guru);
-        return view('member.hasilLaporan',compact('data','tanggal','hari'))->with('current_page',$current_page);
+        return view('member.hasilLaporan',compact('data','tanggal','hari'))
+        ->with('current_page',$current_page);
     }
 
     /**
