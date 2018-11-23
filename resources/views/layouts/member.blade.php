@@ -99,7 +99,7 @@
                         data-target="#navbar-collapse"
                         aria-expanded="false"></a>
                     <a href="javascript:void(0);" class="bars"></a>
-                    <a class="navbar-brand" href="../../index.html">ADMINBSB - MATERIAL DESIGN</a>
+                    <a class="navbar-brand" href="{{route('absensi.index')}}">ADMINBSB - MATERIAL DESIGN</a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -361,11 +361,14 @@
                 <!-- User Info -->
                 <div class="user-info">
                     <div class="image">
-                        <img
-                            src="https://gurayyarar.github.io/AdminBSBMaterialDesign/images/user.png"
-                            width="48"
-                            height="48"
-                            alt="User"/>
+
+                      @if (Auth::user()->jk == "L")
+                        <img src="https://gurayyarar.github.io/AdminBSBMaterialDesign/images/user.png" width="48" height="48" alt="AdminBSB - Profile Image" />
+                      @else
+                      <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-512.png"  width="48" height="48" alt="AdminBSB - Profile Image" >
+                      @endif
+
+
                     </div>
                     <div class="info-container">
                         <div
@@ -390,7 +393,7 @@
                                 aria-expanded="true">keyboard_arrow_down</i>
                             <ul class="dropdown-menu pull-right">
                                 <li>
-                                    <a href="javascript:void(0);">
+                                    <a href="{{route('profile.index')}}">
                                         <i class="material-icons">person</i>Profile</a>
                                 </li>
                                 <li role="separator" class="divider"></li>
@@ -639,11 +642,11 @@
     <section class="content">
         <div class="container-fluid">
 
-            <div class="block-header">
+            <!-- <div class="block-header"> -->
 
                 @yield('content')
 
-            </div>
+            <!-- </div> -->
         </div>
     </section>
 

@@ -42,9 +42,13 @@ Route::group(
         Route::get('guruDataTable', 'GuruController@guruDataTabele')->name(
             'guruDataTable.data'
         );
+        Route::get('kelasDataTable', 'KelasController@kelasDataTable')->name(
+            'kelasDataTable'
+        );
         Route::resource('rekap', 'RekapController');
 
         Route::post('data-rekap', 'RekapController@hasil')->name('dataRekap');
+        Route::resource('admprofile', 'ProfileAdminController');
     }
 );
 
@@ -57,5 +61,8 @@ Route::group(
         Route::resource('absensi', 'AbsensiController');
         Route::get('hasil/{tanggal}', 'LaporanController@index');
         Route::resource('hasil', 'LaporanController');
+        Route::resource('profile','ProfileController');
+        Route::post('profile', 'ProfileController@changePass')->name('changePass');
+        // Route::get('changePass','ProfileController@changePass')->name('cP');
     }
 );

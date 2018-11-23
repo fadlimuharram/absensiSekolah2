@@ -103,13 +103,17 @@
             </ul>
         </div>
         <div class="body">
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="kelasTable">
+              <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Daftar</th>
-                    <th width="280px">Action</th>
+
+                  <th>Daftar</th>
+                  <th width="280px">Action</th>
                 </tr>
-                @foreach ($kelas as $kel)
+
+              </thead>
+
+                {{-- @foreach ($kelas as $kel)
                 <tr>
                     <td style="width:50px">{{ ++$i }}</td>
                     <td>{{ $kel->deskripsi }}</td>
@@ -177,91 +181,28 @@
                             </div>
                         </div>
                     </td>
-                </tr>
-                @endforeach
+                  </tr>
+                @endforeach --}}
             </table>
 
-            {!! $kelas->links() !!}
+            <!-- {!! $kelas->links() !!} -->
         </div>
     </div>
 </div>
+@endsection
+@section('footScript')
+<script type="text/javascript">
 
-{{--
-
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Kelas</div>
-
-                <div class="card-body">
-                    <legend>Tambah Kelas</legend>
-                    <form method="POST" action="{{ route('kelas.store') }}">
-                      @csrf
-
-                      <div class="form-group row">
-                          <label for="deskripsi" class="col-sm-4 col-form-label text-md-right">{{ __('Deskripsi Kelas') }}</label>
-
-<div class="col-md-6">
-<input
-    id="deskripsi"
-    type="text"
-    class="form-control{{ $errors->has('deskripsi') ? ' is-invalid' : '' }}"
-    name="deskripsi"
-    value="{{ old('deskripsi') }}"
-    required="required"
-    autofocus="autofocus">
-
-@if ($errors->has('deskripsi'))
-<span class="invalid-feedback" role="alert">
-    <strong>{{ $errors->first('deskripsi') }}</strong>
-</span>
-@endif
-</div>
-</div>
-
-<div class="form-group row mb-0">
-<div class="col-md-8 offset-md-4">
-<button type="submit" class="btn btn-primary">
-    {{ __('Tambah Kelas') }}
-</button>
-</div>
-</div>
-</form>
-
-<legend>List</legend>
-<table class="table table-bordered">
-<tr>
-<th>No</th>
-<th>Daftar2</th>
-<th width="280px">Action</th>
-</tr>
-@foreach ($kelas as $kel)
-<tr>
-<td>{{ ++$i }}</td>
-<td>{{ $kel->deskripsi }}</td>
-<td>
-<form action="{{ route('kelas.destroy',$kel->id) }}" method="POST">
-
-    <a class="btn btn-info" href="{{ route('kelas.show',$kel->id) }}">Show</a>
-
-    <a class="btn btn-primary" href="{{ route('kelas.edit',$kel->id) }}">Edit</a>
-
-    @csrf @method('DELETE')
-
-    <button type="submit" class="btn btn-danger">Delete</button>
-</form>
-</td>
-</tr>
-@endforeach
-</table>
-
-{!! $kelas->links() !!}
-
-</div>
-</div>
-</div>
-</div>
-</div>
---}}
+$(function() {
+  $('#kelasTable').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: '{!! route('kelasDataTable') !!}',
+    columns: [
+      {data: 'deskripsi', name: 'deskripsi' },
+      {data: 'action', name: 'action', orderable: false, searchable: false}
+    ]
+  });
+});
+</script>
 @endsection

@@ -318,8 +318,14 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
+                  @if (Auth::user()->jk == "L")
                     <img src="https://gurayyarar.github.io/AdminBSBMaterialDesign/images/user.png" width="48" height="48"
                         alt="User" />
+                  @else
+
+                  <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-512.png"  width="48" height="48" alt="AdminBSB - Profile Image" >
+
+                  @endif
                 </div>
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -332,7 +338,7 @@
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
                             <li>
-                                <a href="javascript:void(0);">
+                                <a href="{{ route('admprofile.index') }}">
                                     <i class="material-icons">person</i>Profile</a>
                             </li>
                             <li role="separator" class="divider"></li>

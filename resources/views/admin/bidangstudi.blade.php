@@ -47,7 +47,7 @@
                     <div class="col-sm-12">
                         <div class="form-group form-float">
                             <button type="submit" class="btn btn-primary">
-                                {{ __('Tambah Kelas') }}
+                                {{ __('Tambah') }}
                             </button>
                         </div>
                     </div>
@@ -62,8 +62,8 @@
     <div class="card">
         <div class="header">
             <h2>
-                Kelas
-                <small>Daftar Kelas Tersedia</small>
+                Bidang Studi
+                <small>Daftar Bidang Studi Tersedia</small>
             </h2>
             <ul class="header-dropdown m-r--5">
                 <li class="dropdown">
