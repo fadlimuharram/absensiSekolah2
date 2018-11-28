@@ -89,7 +89,7 @@
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse"
                     aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="../../index.html">ADMINBSB - MATERIAL DESIGN</a>
+                <a class="navbar-brand" href="../../index.html">ADMIN SMK Negeri 24</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -338,7 +338,7 @@
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
                             <li>
-                                <a href="{{ route('admprofile.index') }}">
+                                <a href="{{ route('adminprofil.index') }}">
                                     <i class="material-icons">person</i>Profile</a>
                             </li>
                             <li role="separator" class="divider"></li>
@@ -380,14 +380,14 @@
                     <li class="active">
                         <a href="{{route('adminhome.index')}}">
                             <i class="material-icons">home</i>
-                            <span>Home</span>
+                            <span>Menu</span>
                         </a>
                     </li>
                     @else
                     <li class="A">
                         <a href="{{route('adminhome.index')}}">
                             <i class="material-icons">home</i>
-                            <span>Home</span>
+                            <span>Menu</span>
                         </a>
                     </li>
                     @endif
@@ -395,14 +395,14 @@
                     <li class="active">
                         <a href="{{route('users.index')}}">
                             <i class="material-icons">supervisor_account</i>
-                            <span>Users</span>
+                            <span>Pengguna</span>
                         </a>
                     </li>
                     @else
                     <li class="A">
                         <a href="{{ route('users.index') }}">
                             <i class="material-icons">supervisor_account</i>
-                            <span>Users</span>
+                            <span>Pengguna</span>
                         </a>
                     </li>
 
@@ -495,13 +495,12 @@
             <!-- Footer -->
             <div class="legal">
                 <div class="copyright">
-                    &copy; 2016 - 2017
-                    <a href="javascript:void(0);">AdminBSB - Material Design</a>.
+                  Hello - Attendence
                 </div>
                 <div class="version">
                     <b>Version:
                     </b>
-                    1.0.5
+                    0.0.1
                 </div>
             </div>
             <!-- #Footer -->

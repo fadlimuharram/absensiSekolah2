@@ -93,8 +93,9 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title" id="editModalLabel">apaan
-                                                    {{$item->deskripsi}} untuk guru {{$item->nama}} untuk jam mulai {{$item->jam_mulai}}</h4>
+                                                <h4 class="modal-title" id="editModalLabel">
+
+                                                    untuk guru {{$item->nama}} pada jam {{$item->jam_mulai}}</h4>
                                             </div>
                                             <form method="POST" action="{{ route('absensi.store') }}">
                                                 @csrf
@@ -141,9 +142,9 @@
                                                         <div class="col-sm-12">
                                                             <div class="form-group form-float">
                                                                 <button type="submit" class="btn btn-link waves-effect">
-                                                                    {{ __('SIMPAN') }}
+                                                                    {{ __('Simpan') }}
                                                                 </button>
-                                                                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                                                                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Tutup</button>
                                                             </div>
                                                         </div>
                                                     </div>

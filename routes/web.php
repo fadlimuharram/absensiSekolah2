@@ -48,7 +48,9 @@ Route::group(
         Route::resource('rekap', 'RekapController');
 
         Route::post('data-rekap', 'RekapController@hasil')->name('dataRekap');
-        Route::resource('admprofile', 'ProfileAdminController');
+        // Route::resource('admprofile', 'ProfileAdminController');
+        Route::resource('adminprofil','ProfileController2');
+        Route::post('adminprofil', 'ProfileController2@changePass')->name('changePass2');
     }
 );
 

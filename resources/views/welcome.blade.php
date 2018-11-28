@@ -13,7 +13,7 @@
         <style>
             html, body {
                 background-color: #fff;
-                color: #636b6f;
+                color: white;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -49,7 +49,7 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: white;
                 padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;
@@ -61,6 +61,11 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+            body{
+              background-image: url("https://pre00.deviantart.net/0824/th/pre/f/2018/106/a/3/stellar_nursery_by_blph-dc8zui2.jpg");
+              background-position: center;
+              background-size: cover;
+            }
         </style>
     </head>
     <body>
@@ -68,7 +73,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/users') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -81,17 +86,17 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Hello Attendence
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
+                <!-- <div class="links">
+                    <a href="https://laravel.com/docs"></a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
                     <a href="https://nova.laravel.com">Nova</a>
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                </div> -->
             </div>
         </div>
     </body>

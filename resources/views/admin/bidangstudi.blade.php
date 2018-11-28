@@ -90,7 +90,7 @@
                 <tr>
                     <th width="50px">No</th>
                     <th>Daftar</th>
-                    <th width="280px">Action</th>
+                    <th width="280px">Aksi</th>
                 </tr>
                 @foreach ($bidangStudi as $val)
                 <tr>
@@ -99,18 +99,18 @@
                     <td>
                         <form action="{{ route('bidangstudi.destroy',$val->id) }}" method="POST">
 
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal{{$val->id}}">Edit</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal{{$val->id}}">Ubah</button>
 
                             @csrf
                             @method('DELETE')
 
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger">Hapus</button>
                         </form>
                         <div class="modal fade" id="editModal{{$val->id}}" tabindex="-1" role="dialog">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title" id="editModalLabel">Edit
+                                        <h4 class="modal-title" id="editModalLabel">Ubah
                                             {{$val->deskripsi}}</h4>
                                     </div>
                                     <form method="POST" action="{{ route('bidangstudi.update',$val->id) }}">
@@ -140,10 +140,10 @@
                                                 <div class="col-sm-12">
                                                     <div class="form-group form-float">
                                                         <button type="submit" class="btn btn-link waves-effect">
-                                                            {{ __('SIMPAN') }}
+                                                            {{ __('Simpan') }}
                                                         </button>
                                                         <button type="button" class="btn btn-link waves-effect"
-                                                            data-dismiss="modal">CLOSE</button>
+                                                            data-dismiss="modal">Tutup</button>
                                                     </div>
                                                 </div>
                                             </div>

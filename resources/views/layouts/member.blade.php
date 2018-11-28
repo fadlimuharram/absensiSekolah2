@@ -99,7 +99,7 @@
                         data-target="#navbar-collapse"
                         aria-expanded="false"></a>
                     <a href="javascript:void(0);" class="bars"></a>
-                    <a class="navbar-brand" href="{{route('absensi.index')}}">ADMINBSB - MATERIAL DESIGN</a>
+                    <a class="navbar-brand" href="{{route('absensi.index')}}">SMK Negeri 24</a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -472,13 +472,14 @@
             <!-- Footer -->
             <div class="legal">
                 <div class="copyright">
-                    &copy; 2016 - 2017
-                    <a href="javascript:void(0);">AdminBSB - Material Design</a>.
+
+                    &copy;Hello-Attendence
+                    <!-- <a href="javascript:void(0);"></a>. -->
                 </div>
                 <div class="version">
                     <b>Version:
                     </b>
-                    1.0.5
+                    0.0.1
                 </div>
             </div>
             <!-- #Footer -->

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Hash;
 
-class ProfileController extends Controller
+class ProfileController2 extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,12 +15,8 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $curr_kelas = \App\User::select('kelas.deskripsi')
-            ->join('kelas', 'kelas.id', '=', 'users.id_kelas')
-            ->where('users.id', '=', Auth::user()->id)
-            ->get()[0]->deskripsi;
-        $current_page = "profile";
-        return view('member.profile')->with('current_page',$current_page)->with('curr_kelas',$curr_kelas);
+      $current_page = "profile";
+      return view('admin.profile')->with('current_page',$current_page);
     }
 
     /**
@@ -41,7 +37,7 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-      //
+        //
     }
 
     /**
@@ -75,15 +71,17 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-      // dd($request);
       \App\User::find($id)->update([
         'firstname' => $request->fname,
         'lastname'  => $request->lname,
         'email'     => $request->email,
         'jk'        => $request->gender
       ]);
-      return redirect(route('profile.index'))->with('success',"success ubah data");
+      // dd($request);
+      return redirect(route('adminprofil.index'))->with('success',"success ubah data");
+
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -99,12 +97,11 @@ class ProfileController extends Controller
     public function changePass(Request $request)
     {
       // echo "string";
-      // dd($request);
       $request->validate([
         'password' => 'required|min:6|confirmed'
       ]);
       if (!(Hash::check($request->get('current-password'),Auth::user()->password))) {
-        return redirect(route('profile.index'))->with('error',"Your current password does not matches with the password you provided. Please try again");
+        return redirect(route('profile.index'))->with('error',"Your current password does not matches with the password you provided. Please try again")->with('i','err');
 
       }else {
 
@@ -128,5 +125,4 @@ class ProfileController extends Controller
      // ]);
 
     }
-
 }

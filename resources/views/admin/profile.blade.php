@@ -31,14 +31,14 @@
                             <div>
                                 <ul class="nav nav-tabs" role="tablist">
                                     <!-- <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li> -->
-                                    <li role="presentation" class="active"><a href="#profile_settings" aria-controls="settings" role="tab" data-toggle="tab">Profile Settings</a></li>
-                                    <li role="presentation"><a href="#change_password_settings" aria-controls="settings" role="tab" data-toggle="tab">Change Password</a></li>
+                                    <li role="presentation"><a href="#profile_settings" aria-controls="settings" role="tab" data-toggle="tab">Profile Settings</a></li>
+                                    <li role="presentation"  class="active"><a href="#change_password_settings" aria-controls="settings" role="tab" data-toggle="tab">Change Password</a></li>
                                 </ul>
 
                                 <div class="tab-content">
 <!-- {{ !isset($stts) ? 'active' : '' }} -->
-                                    <div role="tabpanel" class="tab-pane fade in active" id="profile_settings">
-                                        <form class="form-horizontal" action="{{route('profile.update',Auth::user()->id)}}" method="post">
+                                    <div role="tabpanel" class="tab-pane fade" id="profile_settings">
+                                        <form class="form-horizontal" action="{{route('adminprofil.update',Auth::user()->id)}}" method="post">
                                           @method('PATCH')
                                           @csrf
                                           <div class="form-group">
@@ -93,8 +93,8 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <div role="tabpanel" class="tab-pane fade in" id="change_password_settings">
-                                        <form class="form-horizontal" method="POST" action="{{ route('changePass') }}">
+                                    <div role="tabpanel" class="tab-pane fade in active" id="change_password_settings">
+                                        <form class="form-horizontal" method="POST" action="{{ route('changePass2') }}">
                                           @csrf
                                             <div class="form-group">
                                                 <label for="OldPassword" class="col-sm-3 control-label">Old Password</label>
@@ -134,4 +134,17 @@
                     </div>
                 </div>
             </div>
+@endsection
+@section('footScript')
+<script type="text/javascript">
+function activaTab(tab){
+  $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+};
+
+
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+var target = $(e.target).attr("href"); // activated tab
+}
+});
+</script>
 @endsection

@@ -34,7 +34,7 @@ class RekapController extends Controller
           'bidang_studi.deskripsi as "mapel"',
           'kelas.deskripsi',
           'kehadiran.stts',
-          'kehadiran.deskripsi as "why"'
+          'kehadiran.deskripsi as why'
       )
           ->join('jadwal_guru', 'jadwal_guru.id', '=', 'kehadiran.id_jadwal')
           ->join(
@@ -46,6 +46,7 @@ class RekapController extends Controller
           ->join('kelas', 'kelas.id', '=', 'jadwal_guru.kelas_id');
       $guru = Guru::get();
       $current_page = "rekap";
+
       return view('admin.rekap')
           ->with("current_page", $current_page)
           ->with('guru', $guru);
@@ -73,7 +74,7 @@ class RekapController extends Controller
             'kelas.deskripsi',
             'kehadiran.stts',
             'kelas.deskripsi as kelas',
-            'kehadiran.deskripsi as "why"'
+            'kehadiran.deskripsi as why'
         )
             ->join('jadwal_guru', 'jadwal_guru.id', '=', 'kehadiran.id_jadwal')
             ->join(
@@ -88,9 +89,68 @@ class RekapController extends Controller
             ->where('jadwal_guru.guru_id', $request->guru)
             ->get();
 
+            $count = \App\Kehadiran::select(
+                'jadwal_guru.jam_mulai',
+                'jadwal_guru.jam_berakhir',
+                'kehadiran.tgl',
+                'bidang_studi.deskripsi as mapel',
+                'kelas.deskripsi',
+                'kehadiran.stts',
+                'kelas.deskripsi as kelas',
+                'kehadiran.deskripsi as why'
+            )
+                ->join('jadwal_guru', 'jadwal_guru.id', '=', 'kehadiran.id_jadwal')
+                ->join(
+                    'bidang_studi',
+                    'bidang_studi.id',
+                    '=',
+                    'jadwal_guru.bidang_studi_id'
+                )
+                ->join('kelas', 'kelas.id', '=', 'jadwal_guru.kelas_id')
+                ->whereMonth('kehadiran.tgl', $request->bulan)
+                ->whereYear('kehadiran.tgl', $request->tahun)
+                ->where('jadwal_guru.guru_id', $request->guru)
+                ->where('kehadiran.stts', '1')
+                ->get();
+
+                $count2 = \App\Kehadiran::select(
+                    'jadwal_guru.jam_mulai',
+                    'jadwal_guru.jam_berakhir',
+                    'kehadiran.tgl',
+                    'bidang_studi.deskripsi as mapel',
+                    'kelas.deskripsi',
+                    'kehadiran.stts',
+                    'kelas.deskripsi as kelas',
+                    'kehadiran.deskripsi as "why"'
+                )
+                    ->join('jadwal_guru', 'jadwal_guru.id', '=', 'kehadiran.id_jadwal')
+                    ->join(
+                        'bidang_studi',
+                        'bidang_studi.id',
+                        '=',
+                        'jadwal_guru.bidang_studi_id'
+                    )
+                    ->join('kelas', 'kelas.id', '=', 'jadwal_guru.kelas_id')
+                    ->whereMonth('kehadiran.tgl', $request->bulan)
+                    ->whereYear('kehadiran.tgl', $request->tahun)
+                    ->where('jadwal_guru.guru_id', $request->guru)
+                    ->where('kehadiran.stts', '0')
+                    ->get();
+
         $current_page = "listRekap";
+        $jumlahguru = Guru::get()->count();
+        $efektif = $count->count();
+        $tdkhadir = $count2->count();
+
+        // $percentage = ($x*100)/$total;
+        // $percentage = ( $NumberFour / $Everything ) * 100;
+        $pertama = ($efektif/20)*100;
+        // $hadir = $new_width - $pertama;
+        // return dd($efektif);
+        // return dd($data);
         return view('admin.listDataRekap')
             ->with("data", $data)
+            ->with('hasil', (int)$pertama )
             ->with("current_page", $current_page);
     }
 

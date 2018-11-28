@@ -124,7 +124,8 @@ class GuruController extends Controller
     public function edit($id)
     {
         $guru = Guru::find($id);
-        return view('admin.guruEdit', compact('guru'));
+        $current_page = "guru";
+        return view('admin.guruEdit', compact('guru'))->with('current_page',$current_page);
     }
 
     /**

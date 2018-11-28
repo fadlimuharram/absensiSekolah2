@@ -37,11 +37,11 @@
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>Nama Depan</th>
+                        <th>Nama Belakang</th>
                         <th>Kelas</th>
                         <th>Email</th>
-                        <th>Action</th>
+                        <th>Aksi</th>
                     </tr>
                     </thead>
                     <tbody>

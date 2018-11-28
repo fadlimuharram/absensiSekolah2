@@ -1,4 +1,4 @@
-@extends('layouts.admin') 
+@extends('layouts.admin')
 
 @section('content')
 <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
@@ -45,7 +45,13 @@
                     <th>Bidang Studi</th>
                     <th>Kelas</th>
                     <th>Kehadiran</th>
+                    <th>Deskripsi</th>
                 </tr>
+                <?php
+                // echo "<pre>";
+                // print_r($data);
+                // echo "<pre>";
+                 ?>
                 @foreach ($data as $item)
                 <tr>
                     <td>{{ $item->jam_mulai }}</td>
@@ -53,10 +59,19 @@
                     <td>{{ $item->tgl }}</td>
                     <td>{{ $item->mapel }}</td>
                     <td>{{ $item->kelas }}</td>
-                    <td>{{ $item->stts }}</td>
-                    
+
+                    <td>
+                      @if ($item->stts == 1)
+                      <a class="btn btn-primary">Hadir</a>
+                      @else
+                      <a class="btn btn-danger">Tidak Hadir</a>
+                      @endif
+                    </td>
+                    <td>{{ $item->why }}</td>
                 </tr>
                 @endforeach
+
+                <td>{{"Hasil Rekapitulai : ".$hasil." %"}}</td>
             </table>
 
         </div>

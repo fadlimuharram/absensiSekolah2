@@ -1,4 +1,4 @@
-@extends('layouts.admin') 
+@extends('layouts.admin')
 
 @section('content')
 
@@ -102,7 +102,7 @@
                               value="{{ old('tlpn') }}"
                               required="required"
                               autofocus="autofocus">
-                          <label class="form-label">No Telephone</label>
+                          <label class="form-label">No. Telpon</label>
                       </div>
                       @if ($errors->has('tlpn'))
                       <label id="name-error" class="error" for="tlpn">{{ $errors->first('tlpn') }}</label>
@@ -165,9 +165,9 @@
                         <th>Nama</th>
                         <th>Email</th>
                         <th>tlpn</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
-                        <th>Action</th>
+                        <th>Dibuat pada</th>
+                        <th>Diubah pada</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
             </table>
@@ -228,7 +228,7 @@
                                 data-toggle="modal"
                                 data-target="#editModal{{$kel->id}}">Edit</button>
 
-                            @csrf 
+                            @csrf
                             @method('DELETE')
 
                             <button type="submit" class="btn btn-danger">Delete</button>

@@ -89,7 +89,7 @@ class KelasController extends Controller
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title" id="editModalLabel">Edit
+                                    <h4 class="modal-title" id="editModalLabel">Ubah
                                         '.$data->deskripsi.'</h4>
                                 </div>
                                 <form method="POST" action="'.route('kelas.update',$data->id).'">
@@ -103,13 +103,12 @@ class KelasController extends Controller
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                         <input
-                                                            type="deskripsi"
+                                                            type="text"
                                                             class="form-control"
                                                             name="deskripsi"
                                                             value="'. $data->deskripsi.'"
                                                             required="required"
                                                             autofocus="autofocus">
-                                                        <label class="form-label">Deskripsi</label>
                                                     </div>
 
                                                 </div>
@@ -123,9 +122,9 @@ class KelasController extends Controller
                                             <div class="col-sm-12">
                                                 <div class="form-group form-float">
                                                     <button type="submit" class="btn btn-link waves-effect">
-                                                        SIMPAN
+                                                        Ubah
                                                     </button>
-                                                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                                                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Tutup</button>
                                                 </div>
                                             </div>
                                         </div>

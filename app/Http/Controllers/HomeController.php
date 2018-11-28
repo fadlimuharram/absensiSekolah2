@@ -27,7 +27,7 @@ class HomeController extends Controller
         $current_page = 'home';
         // return view('home', compact('current_page'));
         if (Auth::user()->levelakses == "admin") {
-          return redirect(route('kelas'));
+          return redirect(route('kelas.index'));
         }else {
           return redirect(route('absensi.index'));
         }

@@ -108,7 +108,7 @@
                 <tr>
 
                   <th>Daftar</th>
-                  <th width="280px">Action</th>
+                  <th width="280px">Aksi</th>
                 </tr>
 
               </thead>
