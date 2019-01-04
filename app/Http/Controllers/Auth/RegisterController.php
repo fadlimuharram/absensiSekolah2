@@ -8,6 +8,7 @@ use App\Kelas;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 
@@ -60,24 +61,28 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        if(User::get()->count() >=1){
-        return Validator::make($data, [
-            'firstname' => ['required', 'string', 'max:255'],
-            'lastname' => ['required', 'string', 'max:255'],
-            'kelas' => ['required'],
-            'gender' => ['required'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-        ]);
-        }else{
-            return Validator::make($data, [
-                'firstname' => ['required', 'string', 'max:255'],
-                'lastname' => ['required', 'string', 'max:255'],
-                'gender' => ['required'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'min:6', 'confirmed'],
-            ]);
-        }
+
+      if(User::get()->count() >=1){
+
+       $validator = Validator::make($data, [
+          'firstname' => 'required|string|max:255',
+          'lastname' => 'required|string|max:255',
+          'id_kelas' => 'required|unique:users',
+          'gender' => 'required',
+          'email' => 'required|string|email|max:255|unique:users',
+          'password' => 'required|string|min:6|confirmed',
+      ]);
+      }else{
+          $validator =  Validator::make($data, [
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'gender' => 'required',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+          ]);
+      }
+      return $validator;
+
     }
 
     /**
@@ -88,28 +93,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        if(User::get()->count() >=1){
-        $user = User::create([
-            'firstname' => $data['firstname'],
-            'lastname' => $data['lastname'],
-            'id_kelas' => $data['kelas'],
-            'levelakses' => 'member',
-            'email' => $data['email'],
-            'jk' => $data['gender'],
-            'password' => Hash::make($data['password']),
-        ]);
-        }else{
-            $user = User::create([
-                'firstname' => $data['firstname'],
-                'lastname' => $data['lastname'],
-                'id_kelas' => 0,
-                'levelakses' => 'admin',
-                'email' => $data['email'],
-                'jk' => $data['gender'],
-                'password' => Hash::make($data['password']),
-            ]);
-        }
-
-        return $user;
+      $akses = User::get()->count() >= 1 ? 'member' : 'admin';
+      $user = User::create([
+        'firstname' => $data['firstname'],
+        'lastname' => $data['lastname'],
+        'id_kelas' => $data['id_kelas'],
+        'levelakses' => $akses,
+        'email' => $data['email'],
+        'jk' => $data['gender'],
+        'password' => Hash::make($data['password']),
+      ]);
+      return $user;
     }
 }

@@ -48,7 +48,7 @@
                                     value="{{ old('nik') }}"
                                     required="required"
                                     autofocus="autofocus">
-                                <label class="form-label">NIK</label>
+                                    <label class="form-label">NIK</label>
                             </div>
                             @if ($errors->has('nik'))
                             <label id="name-error" class="error" for="nik">{{ $errors->first('nik') }}</label>
@@ -158,6 +158,7 @@
             </ul>
         </div>
         <div class="body">
+          <div class="table-responsive">
             <table class="table table-bordered" id="guru-table">
                 <thead>
                     <tr>
@@ -171,6 +172,7 @@
                     </tr>
                 </thead>
             </table>
+          </div>
         </div>
     </div>
 </div>

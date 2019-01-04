@@ -26,15 +26,15 @@ class LaporanController extends Controller
         }
 
       if ($now == "Tuesday") {
-            $hari = "selasa";
+            $hari = "Selasa";
         } elseif ($now == "Thursday") {
-            $hari = "kamis";
+            $hari = "Kamis";
         } elseif ($now == "Friday") {
-            $hari = "jumat";
+            $hari = "Jumat";
         } elseif ($now == "Wednesday"){
-            $hari = "rabu";
+            $hari = "Rabu";
         } elseif ($now == "Monday") {
-            $hari = "senin";
+            $hari = "Senin";
         }else{
             $hari = 'hari libur';
         }

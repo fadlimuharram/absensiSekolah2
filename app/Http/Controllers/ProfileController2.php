@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use Hash;
+use Validator;
 
 class ProfileController2 extends Controller
 {
@@ -96,20 +97,26 @@ class ProfileController2 extends Controller
 
     public function changePass(Request $request)
     {
-      // echo "string";
-      $request->validate([
-        'password' => 'required|min:6|confirmed'
-      ]);
+      $curr_kelas = "Admin";
+
+      $current_page = 'profile';
       if (!(Hash::check($request->get('current-password'),Auth::user()->password))) {
-        return redirect(route('profile.index'))->with('error',"Your current password does not matches with the password you provided. Please try again")->with('i','err');
+
+        return view('admin.profile')->with('current_page',$current_page)->with('error',"Password lama salah")->with('curr_kelas',$curr_kelas);
 
       }else {
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|confirmed|min:6'
+        ]);
+        if ($validator->fails()) {
+          return view('admin.profile')->with('current_page',$current_page)->with('errorr',"password tidak sama")->with('curr_kelas',$curr_kelas);
+        }else {
+            Auth::user()->update([
+               'password' => Hash::make($request->password)
+           ]);
+            return redirect(route('changePass2.index'))->with('success',"berhasil ubah pw");
+        }
 
-        Auth::user()->update([
-           'password' => Hash::make($request->password)
-       ]);
-        return redirect(route('profile.index'))->with('success',"berhasil ubah pw");
-      };
 
 
 
@@ -125,4 +132,6 @@ class ProfileController2 extends Controller
      // ]);
 
     }
+  }
+
 }

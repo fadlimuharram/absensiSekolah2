@@ -363,9 +363,9 @@
                     <div class="image">
 
                       @if (Auth::user()->jk == "L")
-                        <img src="https://gurayyarar.github.io/AdminBSBMaterialDesign/images/user.png" width="48" height="48" alt="AdminBSB - Profile Image" />
+                        <img src="{{URL::asset('/images/maleuser.png')}}" width="48" height="48" alt="AdminBSB - Profile Image" />
                       @else
-                      <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-512.png"  width="48" height="48" alt="AdminBSB - Profile Image" >
+                      <img src="{{URL::asset('/images/femaleusers.png')}}"  width="48" height="48" alt="AdminBSB - Profile Image" >
                       @endif
 
 

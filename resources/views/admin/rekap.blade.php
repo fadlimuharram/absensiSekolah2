@@ -6,8 +6,8 @@
     <div class="card">
         <div class="header">
             <h2>
-                Kelas
-                <small>Tambahakan Kelas Baru</small>
+                Rekapitulasi Data
+                <small>Isi form yang ada di bawah</small>
             </h2>
             <ul class="header-dropdown m-r--5">
                 <li class="dropdown">

@@ -1,10 +1,10 @@
 @extends('layouts.custLogin')
 @section('content')
-<body class="login-page ls-closed">
+<body class="login-page ls-closed" style="background: url('/images/bg4.jpg');background-position: center;background-size: cover">
     <div class="login-box">
         <div class="logo">
             <a href="javascript:void(0);">SMK Negeri 24</b></a>
-            <!-- <small>Admin BootStrap Based - Material Design</small> -->
+             <small>Admin BootStrap Based - Material Design</small>
         </div>
         <div class="card">
             <div class="body">
@@ -37,14 +37,10 @@
                             <button class="btn btn-block bg-pink waves-effect" type="submit">SIGN IN</button>
                         </div>
                     </div>
-                    <div class="row m-t-15 m-b--20">
-                        <div class="col-xs-6">
-                            <a href="{{ route('register') }}">Register Now!</a>
-                        </div>
-                        <div class="col-xs-6 align-right">
-                            <a href="forgot-password.html">Forgot Password?</a>
-                        </div>
+                    <div class="m-t-25 m-b--5 align-center">
+                        <a href="{{ route('register') }}">Register Now!</a>
                     </div>
+
                 </form>
             </div>
         </div>

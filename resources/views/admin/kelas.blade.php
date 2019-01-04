@@ -42,6 +42,7 @@
                         <div class="form-group form-float">
                             <div class="form-line{{ $errors->has('deskripsi') ? ' error' : '' }}">
                                 <input
+                                required=""
                                     type="text"
                                     class="form-control{{ $errors->has('deskripsi') ? ' is-invalid' : '' }}"
                                     name="deskripsi"
@@ -103,6 +104,7 @@
             </ul>
         </div>
         <div class="body">
+          <div class="table-responsive">
             <table class="table table-bordered" id="kelasTable">
               <thead>
                 <tr>
@@ -184,7 +186,7 @@
                   </tr>
                 @endforeach --}}
             </table>
-
+          </div>
             <!-- {!! $kelas->links() !!} -->
         </div>
     </div>

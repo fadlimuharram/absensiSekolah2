@@ -86,6 +86,7 @@
             </ul>
         </div>
         <div class="body">
+          <div class="table-responsive">
             <table class="table table-bordered">
                 <tr>
                     <th width="50px">No</th>
@@ -159,7 +160,7 @@
                 </tr>
                 @endforeach
             </table>
-
+          </div>
             {!! $bidangStudi->links() !!}
         </div>
     </div>

@@ -182,6 +182,7 @@
             </ul>
         </div>
         <div class="body">
+          <div class="table-responsive">
             <table class="table table-bordered" id="guru-table">
                 <thead>
                     <tr>
@@ -216,6 +217,7 @@
                     @endforeach --}}
                 </thead>
             </table>
+          </div>
             {{-- {!! $data->links() !!} --}}
         </div>
     </div>

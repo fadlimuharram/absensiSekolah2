@@ -62,7 +62,7 @@
                 margin-bottom: 30px;
             }
             body{
-              background-image: url("https://pre00.deviantart.net/0824/th/pre/f/2018/106/a/3/stellar_nursery_by_blph-dc8zui2.jpg");
+              background: url("/images/bg4.jpg");
               background-position: center;
               background-size: cover;
             }

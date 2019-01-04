@@ -33,6 +33,7 @@
             </ul>
         </div>
         <div class="body">
+            <div class="table-responsive">
             <table class="table table-bordered" id="guru-table">
                 <thead>
                     <tr>
@@ -72,7 +73,8 @@
                     </tbody>
 
             </table>
-            {!! $data->links() !!}
+            {{ $data->links() }}
+          </div>
         </div>
     </div>
 </div>

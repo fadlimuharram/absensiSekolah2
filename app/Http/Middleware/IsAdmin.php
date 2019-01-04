@@ -15,7 +15,7 @@ class IsAdmin
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {   
+    {
         if(Auth::user()->levelakses != 'admin'){
             return redirect('login');
         }

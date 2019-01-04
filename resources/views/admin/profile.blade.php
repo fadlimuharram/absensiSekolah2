@@ -9,9 +9,9 @@
                             <div class="image-area">
                                 <!-- <img src="../../images/user-lg.jpg" alt="AdminBSB - Profile Image"> -->
                                 @if (Auth::user()->jk == "L")
-                                  <img src="https://gurayyarar.github.io/AdminBSBMaterialDesign/images/user.png" width="120" height="120" alt="AdminBSB - Profile Image" />
+                                  <img src="{{URL::asset('/images/maleuser.png')}}" width="120" height="120" alt="AdminBSB - Profile Image" />
                                 @else
-                                <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-512.png" width="120" height="120" alt="AdminBSB - Profile Image" >
+                                <img src="{{URL::asset('/images/femaleusers.png')}}" width="120" height="120" alt="AdminBSB - Profile Image" >
                                 @endif
                             </div>
                             <div class="content-area">
@@ -29,15 +29,23 @@
                     <div class="card">
                         <div class="body">
                             <div>
+
                                 <ul class="nav nav-tabs" role="tablist">
-                                    <!-- <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li> -->
+
+                                    @if (isset($error) || isset($errorr))
                                     <li role="presentation"><a href="#profile_settings" aria-controls="settings" role="tab" data-toggle="tab">Profile Settings</a></li>
-                                    <li role="presentation"  class="active"><a href="#change_password_settings" aria-controls="settings" role="tab" data-toggle="tab">Change Password</a></li>
+                                    <li role="presentation" class="active"><a href="#change_password_settings" aria-controls="settings" role="tab" data-toggle="tab">Change Password</a></li>
+                                    @else
+                                    <li role="presentation" class="active"><a href="#profile_settings" aria-controls="settings" role="tab" data-toggle="tab">Profile Settings</a></li>
+                                    <li role="presentation"><a href="#change_password_settings" aria-controls="settings" role="tab" data-toggle="tab">Change Password</a></li>
+
+                                    @endif
+
                                 </ul>
 
                                 <div class="tab-content">
-<!-- {{ !isset($stts) ? 'active' : '' }} -->
-                                    <div role="tabpanel" class="tab-pane fade" id="profile_settings">
+                                    <div role="tabpanel" class="tab-pane fade in {{ isset($error) || isset($errorr) ? '' : 'active' }}" id="profile_settings">
+
                                         <form class="form-horizontal" action="{{route('adminprofil.update',Auth::user()->id)}}" method="post">
                                           @method('PATCH')
                                           @csrf
@@ -93,32 +101,40 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <div role="tabpanel" class="tab-pane fade in active" id="change_password_settings">
+
+                                    <div role="tabpanel" class="tab-pane fade in {{ isset($error) || isset($errorr) ? 'active' : '' }}" id="change_password_settings">
                                         <form class="form-horizontal" method="POST" action="{{ route('changePass2') }}">
                                           @csrf
+                                          {{-- <div class="form-line focused error">
+                                        <input class="form-control" name="error" value="Error" required="" type="text">
+                                        <label class="form-label">Form Validation - Error</label>
+                                    </div> --}}
+                                          <div class="form-group">
+                                              <label for="OldPassword" class="col-sm-3 control-label">Password Lama</label>
+                                              <div class="col-sm-9">
+                                                <div class="form-line{{ isset($error) ? ' focused error' : ''   }}">
+                                                    <input id="OldPassword" class="form-control is-invalid" name="current-password" placeholder="Old Password" required="" type="password">
+                                                </div>
+                                              </div>
+
+                                          </div>
+
                                             <div class="form-group">
-                                                <label for="OldPassword" class="col-sm-3 control-label">Old Password</label>
+                                                <label for="NewPassword" class="col-sm-3 control-label">Password Baru</label>
                                                 <div class="col-sm-9">
                                                     <div class="form-line">
-                                                        <input class="form-control" id="OldPassword" name="current-password" placeholder="Old Password" required="" type="password">
+                                                        <input class="form-control" id="NewPassword" name="password" placeholder="Password Baru" required="" type="password">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="NewPassword" class="col-sm-3 control-label">New Password</label>
+                                                <label for="NewPasswordConfirm" class="col-sm-3 control-label">Konfirmasi Password</label>
                                                 <div class="col-sm-9">
-                                                    <div class="form-line">
-                                                        <input class="form-control" id="NewPassword" name="password" placeholder="New Password" required="" type="password">
+                                                    <div class="form-line{{ isset($errorr) ? ' focused error' : ''   }}">
+                                                        <input class="form-control" id="NewPasswordConfirm" name="password_confirmation" placeholder="Konfirmasi Password" required="" type="password">
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="NewPasswordConfirm" class="col-sm-3 control-label">New Password (Confirm)</label>
-                                                <div class="col-sm-9">
-                                                    <div class="form-line">
-                                                        <input class="form-control" id="NewPasswordConfirm" name="password_confirmation" placeholder="New Password (Confirm)" required="" type="password">
-                                                    </div>
-                                                </div>
+
                                             </div>
 
                                             <div class="form-group">
@@ -134,17 +150,21 @@
                     </div>
                 </div>
             </div>
-@endsection
-@section('footScript')
-<script type="text/javascript">
-function activaTab(tab){
-  $('.nav-tabs a[href="#' + tab + '"]').tab('show');
-};
+            @if (isset($error))
+            <div class="alert bg-red alert-dismissible animated fadeInDown" role="alert" style="display: inline-block; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; bottom: 20px; right:10px;">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                {{$error}}
+            </div>
 
+            @endif
+            @if (isset($errorr))
+            <div class="alert bg-red alert-dismissible animated fadeInDown" role="alert" style="display: inline-block; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; bottom: 20px; right:10px;">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                {{$errorr}}
+            </div>
+    </div>
 
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-var target = $(e.target).attr("href"); // activated tab
-}
-});
-</script>
+            @endif
 @endsection

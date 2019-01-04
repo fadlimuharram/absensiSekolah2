@@ -46,6 +46,7 @@
                 </ul>
             </div>
             <div class="body">
+              <div class="table-responsive">
                 <table class="table table-bordered">
                         <tr>
                             <th>Jam Mulai</th>
@@ -164,7 +165,7 @@
 
                         @endforeach
                     </table>
-
+                  </div>
             </div>
         @endif
     </div>

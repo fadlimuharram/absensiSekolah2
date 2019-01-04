@@ -5,8 +5,8 @@
     <div class="card">
         <div class="header">
             <h2>
-                Kelas
-                <small>Daftar Kelas Tersedia</small>
+              Hasil Rekapitulasi
+              {{-- <small>Isi form yang ada di bawah</small> --}}
             </h2>
             <ul class="header-dropdown m-r--5">
                 <li class="dropdown">
@@ -29,6 +29,7 @@
             </ul>
         </div>
         <div class="body">
+          <div class="table-responsive">
             <table class="table table-bordered">
                 {{-- 'jadwal_guru.jam_mulai',
                 'jadwal_guru.jam_berakhir',
@@ -73,7 +74,7 @@
 
                 <td>{{"Hasil Rekapitulai : ".$hasil." %"}}</td>
             </table>
-
+          </div>
         </div>
     </div>
 </div>
